@@ -818,6 +818,10 @@ readable-stream@^2.2.2:
     string_decoder "~1.0.3"
     util-deprecate "~1.0.1"
 
+redom@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.yarnpkg.com/redom/-/redom-3.7.0.tgz#2f41d277f9a164d6e12e21a8d4286792f474f422"
+
 require-uncached@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/require-uncached/-/require-uncached-1.0.3.tgz#4e0d56d6c9662fd31e43011c4b95aa49955421d3"
