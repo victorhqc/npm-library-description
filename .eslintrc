@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb-base",
+  "env": {
+    "node": true,
+    "atomtest": true,
+    "jasmine": true,
+    "browser": true
+  },
+  "globals": {
+    "atom": false
+  },
+  "settings": {
+    "import/core-modules": ["atom"]
+  },
+  "rules": {
+    "function-paren-newline": 0
+  }
+}

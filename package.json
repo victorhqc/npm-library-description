@@ -1,0 +1,25 @@
+{
+  "name": "npm-library-description",
+  "main": "./lib/npm-library-description",
+  "version": "0.0.0",
+  "description": "Shows descriptions for the dependencies in your `package.json`",
+  "keywords": [
+    "npm",
+    "description",
+    "package.json"
+  ],
+  "repository": "https://github.com/atom/npm-library-description",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "lodash": "^4.17.4"
+  },
+  "devDependencies": {
+    "eslint": "^4.9.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-plugin-import": "^2.7.0"
+  }
+}
