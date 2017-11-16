@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.17.1",
+    "date-fns": "^1.29.0",
     "lodash": "^4.17.4",
     "redom": "^3.7.0"
   },
