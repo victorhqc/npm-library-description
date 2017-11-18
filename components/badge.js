@@ -35,7 +35,6 @@ const onBadgeClick = (atom, params) => (e) => {
   // Remove all other existing tooltips
   removeTooltips(atom);
 
-  console.log('add tooltip');
   return addTooltip(params, badge);
 };
 
