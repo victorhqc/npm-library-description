@@ -1,15 +1,19 @@
 {
   "name": "npm-library-description",
   "main": "./lib/npm-library-description",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Shows dependencies information in your `package.json`",
+  "author": {
+    "name": "Victor Quiroz Castro",
+    "url": "victorhqc.com"
+  },
   "keywords": [
     "npm",
     "description",
     "information",
     "package.json"
   ],
-  "repository": "https://github.com/atom/npm-library-description",
+  "repository": "https://github.com/victorhqc/npm-library-description",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
