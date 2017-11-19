@@ -13,7 +13,7 @@
     "information",
     "package.json"
   ],
-  "repository": "https://github.com/victorhqc/npm-library-description",
+  "repository": "git@github.com:victorhqc/npm-library-description.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
