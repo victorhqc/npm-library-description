@@ -13,7 +13,8 @@ apm install npm-library-description
 Or, just search for `npm-library-description` inside Atom's package panel.
 
 ## What does it do?
-Fetches the dependencies information from your `package.json`. Very useful to get the package's information. Faster than looking for it in google.
+Fetches the dependencies information from your `package.json`. Very useful to get the package's
+information. Faster than looking for it in google.
 
 ## How does it work?
 Parses the file and looks whatever is inside `dependencies` and `devDependencies`.
