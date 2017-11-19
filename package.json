@@ -6,6 +6,7 @@
   "keywords": [
     "npm",
     "description",
+    "information",
     "package.json"
   ],
   "repository": "https://github.com/atom/npm-library-description",
