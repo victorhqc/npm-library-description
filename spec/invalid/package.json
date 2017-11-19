@@ -1,0 +1,7 @@
+{
+  "name": "foobar",
+  "it": "has an invalid json",
+  "dependencies": {
+    "invalid": "bar",
+  }
+}

@@ -28,14 +28,17 @@ const onBadgeClick = (atom, params) => (e) => {
     return undefined;
   }
 
-  if (badge.parentNode.querySelector(`.${TOOLTIP}.${data.name}`)) {
-    return removeTooltip(badge, data);
+  // It should be rendered in parent node, but in tests this is not working.
+  const targetNode = badge.parentNode || badge;
+
+  if (targetNode.querySelector(`.${TOOLTIP}.${data.name}`)) {
+    return removeTooltip(targetNode, data);
   }
 
   // Remove all other existing tooltips
   removeTooltips(atom);
 
-  return addTooltip(params, badge);
+  return addTooltip(params, targetNode);
 };
 
 /**
@@ -44,8 +47,16 @@ const onBadgeClick = (atom, params) => (e) => {
  */
 export const addBadge = (atom, { line, ...params }) => {
   const icon = el('div');
+
+  const {
+    data,
+  } = params;
+
+  const title = (data && data.name) || '';
+
   setAttr(icon, {
     className: `${BADGE} icon icon-info`,
+    title,
   });
 
   icon.addEventListener('click', onBadgeClick(atom, params), false);

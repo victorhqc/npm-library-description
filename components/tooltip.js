@@ -21,8 +21,8 @@ const getLatestVersion = (data) => {
   }
 
   return {
-    description: `Latest version: ${version.latest}`,
-    releaseDate: `, Released on ${format(data.time[version.latest], DATE_FORMAT)}`,
+    description: `Latest version: ${version.latest}, `,
+    releaseDate: `Released on ${format(data.time[version.latest], DATE_FORMAT)}`,
   };
 };
 
@@ -109,11 +109,11 @@ export const addTooltip = ({ data }, badge) => {
     className: `${TOOLTIP} ${data.name}`,
   });
 
-  mount(badge.parentNode, tooltip);
+  mount(badge, tooltip);
 };
 
 export const removeTooltip = (badge, data) => {
-  badge.parentNode.querySelector(`.${TOOLTIP}.${data.name}`).remove();
+  badge.querySelector(`.${TOOLTIP}.${data.name}`).remove();
 };
 
 export const removeTooltips = (atom) => {
