@@ -2,7 +2,7 @@
   "name": "npm-library-description",
   "main": "./lib/npm-library-description",
   "version": "0.0.0",
-  "description": "Shows descriptions for the dependencies in your `package.json`",
+  "description": "Shows dependencies information in your `package.json`",
   "keywords": [
     "npm",
     "description",
