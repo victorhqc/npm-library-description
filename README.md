@@ -1,5 +1,5 @@
 # npm-library-description
-Shows dependencies information in your `package.json`
+Shows information about dependencies in your `package.json`
 
 ![Npm library description](https://i.imgur.com/tGWCxXT.png)
 
