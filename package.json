@@ -2,7 +2,7 @@
   "name": "npm-library-description",
   "main": "./lib/npm-library-description",
   "version": "0.1.0",
-  "description": "Shows dependencies information in your `package.json`",
+  "description": "Shows information about dependencies in your `package.json`",
   "author": {
     "name": "Victor Quiroz Castro",
     "url": "victorhqc.com"
