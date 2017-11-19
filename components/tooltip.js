@@ -8,6 +8,7 @@ import {
   NPM_LIBRARY_DESCRIPTION,
   TOOLTIP,
   DATE_FORMAT,
+  MIN_HEIGHT,
 } from '../constants/elements';
 
 const getView = atom => atom.views.getView(atom.workspace);
@@ -95,6 +96,24 @@ const addNpmLink = (data) => {
   return el('div', container);
 };
 
+// Checks if the tooltip should be opened up or down depending on the badge's position relative to
+// the screen.
+const shouldOpenOnBottom = (badge) => {
+  const tabsHeightTarget = 'body /deep/ ul.list-inline.tab-bar.inset-panel';
+  const tabs = getView(atom).querySelector(tabsHeightTarget);
+  const tabsHeight = (tabs && tabs.getBoundingClientRect().height) || 0;
+
+  const footerHeightTarget = 'body /deep/ atom-panel.footer';
+  const footer = getView(atom).querySelector(footerHeightTarget);
+  const footerHeight = (footer && footer.getBoundingClientRect().height) || 0;
+  const totalHeight = window.screen.height - tabsHeight - footerHeight;
+
+  const badgeDetails = badge.getBoundingClientRect();
+  const badgeTopPosition = badgeDetails.top + badgeDetails.height;
+
+  return totalHeight - badgeTopPosition >= MIN_HEIGHT;
+};
+
 export const addTooltip = ({ data }, badge) => {
   const tooltip = el('div',
     el('h3', data.name),
@@ -105,8 +124,10 @@ export const addTooltip = ({ data }, badge) => {
     el('small', addAuthor(data)),
   );
 
+  const positionClass = shouldOpenOnBottom(badge) ? 'bottom' : 'top';
+
   setAttr(tooltip, {
-    className: `${TOOLTIP} ${data.name}`,
+    className: `${TOOLTIP} ${data.name} ${positionClass}`,
   });
 
   mount(badge, tooltip);
