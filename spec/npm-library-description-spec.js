@@ -58,48 +58,57 @@ describe('NpmLibraryDescription', () => {
   it('Should render NPM information when clicking a badge', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip axios",
-        "div": [
-          {
-            "div": {
-              "a": {
-                "__text": "http://foo.bar",
-                "_href": "http://foo.bar"
-              },
+        "_class": "npm-library-tooltip axios bottom",
+        "article": {
+          "h3": "axios",
+          "p": "foo"
+        },
+        "footer": {
+          "a": [
+            {
+              "_class": "button",
+              "_href": "http://foo.bar",
+              "_title": "http://foo.bar",
               "i": {
-                "_class": "icon icon-globe",
-                "_title": "Website"
+                "_class": "icon icon-globe"
+              }
+            },
+            {
+              "_class": "button dark",
+              "_href": "https://npmjs.com/packages/axios",
+              "_title": "https://npmjs.com/packages/axios",
+              "i": {
+                "_class": "icon icon-repo"
               }
             }
-          },
-          {
-            "div": {
-              "a": {
-                "__text": "https://npmjs.com/packages/axios",
-                "_href": "https://npmjs.com/packages/axios"
+          ],
+          "div": {
+            "_class": "info",
+            "small": [
+              {
+                "p": {
+                  "span": "0.0.5",
+                  "strong": "Latest version:"
+                }
               },
-              "i": {
-                "_class": "icon icon-repo",
-                "_title": "npm"
+              {
+                "p": {
+                  "span": "May 1st, 2017",
+                  "strong": "Release date:"
+                }
+              },
+              {
+                "p": {
+                  "span": "Michael Fassbender",
+                  "strong": "Author:"
+                }
               }
-            }
+            ]
           }
-        ],
-        "h3": "axios",
-        "p": "foo",
-        "small": [
-          {
-            "div": {
-              "span": [
-                "Latest version: 0.0.5,",
-                "Released on May 1st, 2017"
-              ]
-            }
-          },
-          {
-            "span": "Author: Michael Fassbender"
-          }
-        ]
+        },
+        "i": {
+          "_class": "close icon icon-x"
+        }
       }
     }`;
 
@@ -124,29 +133,34 @@ describe('NpmLibraryDescription', () => {
   it('Should render NPM incomplete information (only name and description)', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip webpack",
-        "div": {
-          "div": {
-            "a": {
-              "__text": "https://npmjs.com/packages/webpack",
-              "_href": "https://npmjs.com/packages/webpack"
-            },
-            "i": {
-              "_class": "icon icon-repo",
-              "_title": "npm"
-            }
-          }
+        "_class": "npm-library-tooltip webpack bottom",
+        "article": {
+          "h3": "webpack",
+          "p": "foo"
         },
-        "h3": "webpack",
-        "p": "foo",
-        "small": [
-          {
-            "div": {
-              "span": "No latest version"
+        "footer": {
+          "a": {
+            "_class": "button dark",
+            "_href": "https://npmjs.com/packages/webpack",
+            "_title": "https://npmjs.com/packages/webpack",
+            "i": {
+              "_class": "icon icon-repo"
             }
           },
-          ""
-        ]
+          "div": {
+            "_class": "info",
+            "small": [
+              {
+                "p": "No latest version"
+              },
+              "",
+              ""
+            ]
+          }
+        },
+        "i": {
+          "_class": "close icon icon-x"
+        }
       }
     }`;
 
