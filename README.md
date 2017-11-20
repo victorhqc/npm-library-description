@@ -1,7 +1,9 @@
 # npm-library-description
+![Build Status](https://img.shields.io/circleci/project/github/victorhqc/npm-library-description/master.svg) ![License](https://img.shields.io/apm/l/npm-library-description.svg) ![Version](https://img.shields.io/apm/v/npm-library-description.svg) ![Downloads](https://img.shields.io/apm/dm/npm-library-description.svg)
+
 Shows information about dependencies in your `package.json`
 
-![Npm library description](https://i.imgur.com/fDQNEFl.png)
+![Npm library description](https://i.imgur.com/SK7tsj6.png)
 
 ## Inmarstallation
 
@@ -24,13 +26,17 @@ After that it does an HTTP Request per `dependency` to fetch its information.
 ## Usage
 Just open a valid `package.json` and click in the `information` icon of a dependency.
 
-![Npm library description usage](https://i.imgur.com/9vScRmo.gif)
+![Npm library description usage](https://i.imgur.com/KHqXWQN.gif)
+
+## Features
 
 When it opens an invalid file, it'll warn about bad parsing.
+![Npm library description warning](https://i.imgur.com/pTJZ2s3.gif)
 
-![Npm library description warning](https://i.imgur.com/he1ocz4.gif)
-
-To update the `dependencies` information, just save the file again. If the dependencies were already
+Updates the `dependencies` information on save. If the dependencies were already
 fetched, there will be no additional HTTP Requests.
 
-![Npm library update](https://i.imgur.com/upOSIQ2.gif)
+![Npm library update](https://i.imgur.com/KT2eCuc.gif)
+
+Colors used will change according to current theme
+![Npm library white theme](https://i.imgur.com/WloQhYh.png)
