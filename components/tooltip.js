@@ -72,7 +72,7 @@ const addWebsiteLink = (data) => {
 
   const homepage = el('a', icon);
   setAttr(homepage, {
-    className: 'button',
+    className: 'btn',
     href: data.homepage,
     title: data.homepage,
   });
@@ -93,7 +93,7 @@ const addNpmLink = (data) => {
 
   const npm = el('a', icon);
   setAttr(npm, {
-    className: 'button dark',
+    className: 'btn btn-primary',
     href: npmlink,
     title: npmlink,
   });

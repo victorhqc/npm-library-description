@@ -66,7 +66,7 @@ describe('NpmLibraryDescription', () => {
         "footer": {
           "a": [
             {
-              "_class": "button",
+              "_class": "btn",
               "_href": "http://foo.bar",
               "_title": "http://foo.bar",
               "i": {
@@ -74,7 +74,7 @@ describe('NpmLibraryDescription', () => {
               }
             },
             {
-              "_class": "button dark",
+              "_class": "btn btn-primary",
               "_href": "https://npmjs.com/packages/axios",
               "_title": "https://npmjs.com/packages/axios",
               "i": {
@@ -140,7 +140,7 @@ describe('NpmLibraryDescription', () => {
         },
         "footer": {
           "a": {
-            "_class": "button dark",
+            "_class": "btn btn-primary",
             "_href": "https://npmjs.com/packages/webpack",
             "_title": "https://npmjs.com/packages/webpack",
             "i": {

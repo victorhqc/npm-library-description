@@ -21,8 +21,8 @@
     overflow: auto;
     text-align: left;
     width: 500px;
-    background-color: #fafafa;
-    color: #333;
+    background-color: @background-color-highlight;
+    color: @text-color;
     padding: 0;
     border-radius: 3px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
@@ -31,6 +31,8 @@
       position: absolute;
       top: 7px;
       right: 7px;
+      color: @text-color;
+      text-shadow: none;
     }
 
     article {
@@ -51,11 +53,11 @@
     }
 
     p {
-      color: #666;
+      color: @text-color-highlight;
     }
 
     footer {
-      border-top: 1px solid #E8F4FE;
+      border-top: 1px solid @pane-item-border-color;
       color: #3C97F7;
       display: flex;
 
@@ -70,31 +72,20 @@
 
       p {
         margin: 0;
-        color: #52A9F8;
+        color: @text-color-highlight;
       }
 
       strong {
         font-weight: 500;
-        color: #63a5de;
+        color: @text-color-selected;
       }
 
-      .button {
+      .btn {
         width: 80px;
+        border: none;
         text-align: center;
-        background-color: #6CB5F4;
-        color: white;
-
-        &:hover {
-          background-color: #63a5de;
-        }
-
-        &.dark {
-          background-color: #5995c8;
-
-          &:hover {
-            background-color: #4f84b2;
-          }
-        }
+        border-radius: 0;
+        box-shadow: none;
 
         // This centers the icons inside
         display: flex;
