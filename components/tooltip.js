@@ -127,7 +127,7 @@ const addFooter = (data) => {
     el('small', addAuthor(data)),
   );
   setAttr(infoContainer, {
-    className: 'info',
+    className: data && data.homepage ? 'info' : 'info incomplete',
   });
 
   const footer = el('footer',

@@ -148,7 +148,7 @@ describe('NpmLibraryDescription', () => {
             }
           },
           "div": {
-            "_class": "info",
+            "_class": "info incomplete",
             "small": [
               {
                 "p": "No latest version"
