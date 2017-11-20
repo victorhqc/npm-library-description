@@ -21,13 +21,21 @@
     overflow: auto;
     text-align: left;
     width: 500px;
-    min-height: 150px;
     background-color: #fafafa;
     color: #333;
-    padding: 5px;
+    padding: 0;
     border-radius: 3px;
     box-shadow: 0 3px 5px rgba(0, 0, 0, 0.3);
-    border: 1px solid #666;
+
+    .close {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+    }
+
+    article {
+      padding: 10px;
+    }
 
     &.bottom {
     }
@@ -37,12 +45,64 @@
     }
 
     h1, h2, h3, h4 {
+      font-weight: 300;
       margin-top: 0;
       margin-bottom: 12px;
     }
 
-    a {
-      color: #00a6fb;
+    p {
+      color: #666;
+    }
+
+    footer {
+      border-top: 1px solid #E8F4FE;
+      color: #3C97F7;
+      display: flex;
+
+      .info {
+        width: ~"calc(100% - 160px)";
+        padding: 10px;
+      }
+
+      p {
+        margin: 0;
+        color: #52A9F8;
+      }
+
+      strong {
+        font-weight: 500;
+        color: #63a5de;
+      }
+
+      .button {
+        width: 80px;
+        text-align: center;
+        background-color: #6CB5F4;
+        color: white;
+
+        &:hover {
+          background-color: #63a5de;
+        }
+
+        &.dark {
+          background-color: #5995c8;
+
+          &:hover {
+            background-color: #4f84b2;
+          }
+        }
+
+        // This centers the icons inside
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        .icon {
+          &:before {
+            margin: 0;
+          }
+        }
+      }
     }
   }
 }

@@ -13,26 +13,40 @@ import {
 
 const getView = atom => atom.views.getView(atom.workspace);
 
-const getLatestVersion = (data) => {
-  const version = data['dist-tags'];
-  if (!version || !version.latest) {
-    return {
-      description: 'No latest version',
-    };
-  }
+export const removeTooltip = (badge, data) => {
+  badge.querySelector(`.${TOOLTIP}.${data.name}`).remove();
+};
 
-  return {
-    description: `Latest version: ${version.latest}, `,
-    releaseDate: `Released on ${format(data.time[version.latest], DATE_FORMAT)}`,
-  };
+export const removeTooltips = (atom) => {
+  const target = `body /deep/ .${NPM_LIBRARY_DESCRIPTION} .${TOOLTIP}`;
+  const tooltips = getView(atom).querySelectorAll(target);
+  map(tooltips, (tooltip) => {
+    tooltip.remove();
+  });
 };
 
 const addLatestVersion = (data) => {
-  const version = getLatestVersion(data);
-  const latest = el('span', version.description);
-  const releaseDate = version.releaseDate ? el('span', version.releaseDate) : undefined;
+  const version = data['dist-tags'];
+  if (!version || !version.latest) {
+    return el('p', 'No latest version');
+  }
 
-  return el('div', latest, releaseDate);
+  return el('p',
+    el('strong', 'Latest version:'),
+    el('span', ` ${version.latest}`),
+  );
+};
+
+const addReleaseDate = (data) => {
+  const version = data['dist-tags'];
+  if (!version || !version.latest) {
+    return undefined;
+  }
+
+  return el('p',
+    el('strong', 'Release date:'),
+    el('span', ` ${format(data.time[version.latest], DATE_FORMAT)}`),
+  );
 };
 
 const addAuthor = (data) => {
@@ -40,7 +54,10 @@ const addAuthor = (data) => {
     return undefined;
   }
 
-  return el('span', `Author: ${data.author.name}`);
+  return el('p',
+    el('strong', 'Author:'),
+    el('span', ` ${data.author.name}`),
+  );
 };
 
 const addWebsiteLink = (data) => {
@@ -49,51 +66,39 @@ const addWebsiteLink = (data) => {
   }
 
   const icon = el('i');
-  const homepage = el('a', data.homepage);
-
-  const container = el(
-    'div',
-    icon,
-    homepage,
-  );
-
-  setAttr(homepage, {
-    href: data.homepage,
-  });
-
   setAttr(icon, {
     className: 'icon icon-globe',
-    title: 'Website',
   });
 
-  return el('div', container);
+  const homepage = el('a', icon);
+  setAttr(homepage, {
+    className: 'button',
+    href: data.homepage,
+    title: data.homepage,
+  });
+
+  return homepage;
 };
 
 const addNpmLink = (data) => {
   if (!data || !data.name) {
     return undefined;
   }
+  const npmlink = `https://npmjs.com/packages/${data.name}`;
 
   const icon = el('i');
-  const npmlink = `https://npmjs.com/packages/${data.name}`;
-  const npm = el('a', npmlink);
-
-  const container = el(
-    'div',
-    icon,
-    npm,
-  );
-
-  setAttr(npm, {
-    href: npmlink,
-  });
-
   setAttr(icon, {
     className: 'icon icon-repo',
-    title: 'npm',
   });
 
-  return el('div', container);
+  const npm = el('a', icon);
+  setAttr(npm, {
+    className: 'button dark',
+    href: npmlink,
+    title: npmlink,
+  });
+
+  return npm;
 };
 
 // Checks if the tooltip should be opened up or down depending on the badge's position relative to
@@ -114,14 +119,47 @@ const shouldOpenOnBottom = (badge) => {
   return totalHeight - badgeTopPosition >= MIN_HEIGHT;
 };
 
-export const addTooltip = ({ data }, badge) => {
-  const tooltip = el('div',
-    el('h3', data.name),
-    el('p', data.description),
+const addFooter = (data) => {
+  const infoContainer = el(
+    'div',
+    el('small', addLatestVersion(data)),
+    el('small', addReleaseDate(data)),
+    el('small', addAuthor(data)),
+  );
+  setAttr(infoContainer, {
+    className: 'info',
+  });
+
+  const footer = el('footer',
+    infoContainer,
     addWebsiteLink(data),
     addNpmLink(data),
-    el('small', addLatestVersion(data)),
-    el('small', addAuthor(data)),
+  );
+
+  return footer;
+};
+
+const addCloseButton = (data, badge) => {
+  const icon = el('i');
+  setAttr(icon, {
+    className: 'close icon icon-x',
+  });
+
+  icon.addEventListener('click', () => {
+    removeTooltip(badge, data);
+  }, false);
+
+  return icon;
+};
+
+export const addTooltip = ({ data }, badge) => {
+  const tooltip = el('div',
+    addCloseButton(data, badge),
+    el('article',
+      el('h3', data.name),
+      el('p', data.description),
+    ),
+    addFooter(data),
   );
 
   const positionClass = shouldOpenOnBottom(badge) ? 'bottom' : 'top';
@@ -131,16 +169,4 @@ export const addTooltip = ({ data }, badge) => {
   });
 
   mount(badge, tooltip);
-};
-
-export const removeTooltip = (badge, data) => {
-  badge.querySelector(`.${TOOLTIP}.${data.name}`).remove();
-};
-
-export const removeTooltips = (atom) => {
-  const target = `body /deep/ .${NPM_LIBRARY_DESCRIPTION} .${TOOLTIP}`;
-  const tooltips = getView(atom).querySelectorAll(target);
-  map(tooltips, (tooltip) => {
-    tooltip.remove();
-  });
 };
