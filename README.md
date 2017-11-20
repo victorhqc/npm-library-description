@@ -5,7 +5,7 @@ Shows information about dependencies in your `package.json`
 
 ![Npm library description](https://i.imgur.com/SK7tsj6.png)
 
-## Inmarstallation
+## Installation
 
 You can install via `apm`:
 ```sh
