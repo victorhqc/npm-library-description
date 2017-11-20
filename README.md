@@ -1,7 +1,7 @@
 # npm-library-description
 Shows information about dependencies in your `package.json`
 
-![Npm library description](https://i.imgur.com/tGWCxXT.png)
+![Npm library description](https://i.imgur.com/fDQNEFl.png)
 
 ## Inmarstallation
 
@@ -24,7 +24,7 @@ After that it does an HTTP Request per `dependency` to fetch its information.
 ## Usage
 Just open a valid `package.json` and click in the `information` icon of a dependency.
 
-![Npm library description usage](https://i.imgur.com/c2tWCz5.gif)
+![Npm library description usage](https://i.imgur.com/9vScRmo.gif)
 
 When it opens an invalid file, it'll warn about bad parsing.
 
@@ -33,4 +33,4 @@ When it opens an invalid file, it'll warn about bad parsing.
 To update the `dependencies` information, just save the file again. If the dependencies were already
 fetched, there will be no additional HTTP Requests.
 
-![Npm library update](https://i.imgur.com/90JcBlz.gif)
+![Npm library update](https://i.imgur.com/upOSIQ2.gif)
