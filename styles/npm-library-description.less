@@ -12,6 +12,14 @@
 .npm-library-description {
   .npm-library-description-badge {
     cursor: pointer;
+    opacity: 0.3;
+    transition-property: opacity;
+    transition-duration: 250ms;
+    transition-timing-function: ease-in-out;
+
+    &:hover {
+      opacity: 1;
+    }
   }
 
   .npm-library-tooltip {
