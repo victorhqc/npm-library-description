@@ -135,11 +135,17 @@ const addCloseButton = (data, badge) => {
   return icon;
 };
 
-export const addTooltip = ({ dependency, pixelsToBottom, event }, element) => {
+export const addTooltip = ({
+  dependency,
+  pixelsToBottom,
+  pixelsToTop,
+  lineHeight,
+  leftOffset,
+}, element) => {
   removeTooltips(element);
 
   const { data } = dependency;
-  const { x, y } = event;
+  // const { y } = event;
 
   const tooltip = el('div',
     addCloseButton(data, element),
@@ -155,7 +161,7 @@ export const addTooltip = ({ dependency, pixelsToBottom, event }, element) => {
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
     style: {
-      transform: `translate3d(${x}px, ${y}px, 0)`,
+      transform: `translate3d(${leftOffset}px, ${pixelsToTop + lineHeight}px, 0)`,
     },
   });
 
