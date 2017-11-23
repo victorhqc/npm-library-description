@@ -5,6 +5,10 @@ import format from 'date-fns/format';
 import map from 'lodash/map';
 
 import {
+  calculatePixelsFromLine,
+} from '../helpers/atom';
+
+import {
   TOOLTIP,
   DATE_FORMAT,
   MIN_HEIGHT,
@@ -137,14 +141,11 @@ const addCloseButton = (data, badge) => {
 
 export const addTooltip = ({
   dependency,
-  pixelsToBottom,
-  pixelsToTop,
-  lineHeight,
-  leftOffset,
+  inGutter,
 }, element) => {
   removeTooltips(element);
 
-  const { data } = dependency;
+  const { data, line } = dependency;
   // const { y } = event;
 
   const tooltip = el('div',
@@ -156,15 +157,27 @@ export const addTooltip = ({
     addFooter(data),
   );
 
+  const {
+    pixelsToBottom,
+    pixelsToTop,
+    lineHeight,
+    leftOffset,
+  } = calculatePixelsFromLine(line);
+
   const shouldRenderOnBottom = shouldOpenOnBottom(pixelsToBottom);
   const positionClass = shouldRenderOnBottom ? 'bottom' : 'top';
   const topOffset = shouldRenderOnBottom ? pixelsToTop + lineHeight : pixelsToTop;
 
+  const x = inGutter ? 20 : leftOffset;
+  const y = inGutter ? 0 : topOffset;
+
+  const style = {
+    transform: `translate3d(${x}px, ${y}px, 0)`,
+  };
+
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
-    style: {
-      transform: `translate3d(${leftOffset}px, ${topOffset}px, 0)`,
-    },
+    style,
   });
 
   mount(element, tooltip);

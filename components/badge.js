@@ -5,6 +5,11 @@
 import { el, setAttr } from 'redom';
 
 import {
+  getActiveTextEditor,
+  getView,
+} from '../helpers/atom';
+
+import {
   BADGE,
   TOOLTIP,
 } from '../constants/elements';
@@ -15,7 +20,7 @@ import {
   addTooltip,
 } from './tooltip';
 
-const onBadgeClick = (atom, params) => (e) => {
+const onBadgeClick = params => (e) => {
   e.stopPropagation();
   const badge = e.target;
 
@@ -35,20 +40,23 @@ const onBadgeClick = (atom, params) => (e) => {
     return removeTooltip(targetNode, data);
   }
 
-  const textEditor = atom.workspace.getActiveTextEditor();
-  const view = atom.views.getView(textEditor);
+  const textEditor = getActiveTextEditor();
+  const view = getView(textEditor);
 
   // Remove all other existing tooltips
   removeTooltips(view);
 
-  return addTooltip(params, targetNode);
+  return addTooltip({
+    ...params,
+    inGutter: true,
+  }, targetNode);
 };
 
 /**
  * Creates a new Badge HTML element.
  * @param {Object} atom
  */
-export const addBadge = (atom, params) => {
+export const addBadge = (params) => {
   const {
     data,
   } = params.dependency;
@@ -62,7 +70,7 @@ export const addBadge = (atom, params) => {
     title,
   });
 
-  icon.addEventListener('click', onBadgeClick(atom, params), false);
+  icon.addEventListener('click', onBadgeClick(params), false);
 
   return icon;
 };
