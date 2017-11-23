@@ -55,7 +55,7 @@ export const addBadge = (atom, { line, ...params }) => {
   const title = (data && data.name) || '';
 
   setAttr(icon, {
-    className: `${BADGE} icon icon-info`,
+    className: `${BADGE} icon icon-package`,
     title,
   });
 
