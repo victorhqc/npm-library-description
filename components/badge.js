@@ -22,7 +22,7 @@ const onBadgeClick = (atom, params) => (e) => {
   const {
     data,
     isFetching,
-  } = params;
+  } = params.dependency;
 
   if (isFetching || !data) {
     return undefined;
@@ -35,8 +35,11 @@ const onBadgeClick = (atom, params) => (e) => {
     return removeTooltip(targetNode, data);
   }
 
+  const textEditor = atom.workspace.getActiveTextEditor();
+  const view = atom.views.getView(textEditor);
+
   // Remove all other existing tooltips
-  removeTooltips(atom);
+  removeTooltips(view);
 
   return addTooltip(params, targetNode);
 };
@@ -45,12 +48,12 @@ const onBadgeClick = (atom, params) => (e) => {
  * Creates a new Badge HTML element.
  * @param {Object} atom
  */
-export const addBadge = (atom, { line, ...params }) => {
-  const icon = el('div');
-
+export const addBadge = (atom, params) => {
   const {
     data,
-  } = params;
+  } = params.dependency;
+
+  const icon = el('div');
 
   const title = (data && data.name) || '';
 

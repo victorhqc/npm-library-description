@@ -14,6 +14,7 @@
     "package.json"
   ],
   "repository": "git@github.com:victorhqc/npm-library-description.git",
+  "website": "https://github.com/victorhqc/npm-library-description",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
