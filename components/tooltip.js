@@ -103,21 +103,7 @@ const addNpmLink = (data) => {
 
 // Checks if the tooltip should be opened up or down depending on the badge's position relative to
 // the screen.
-const shouldOpenOnBottom = (badge) => {
-  const tabsHeightTarget = 'body /deep/ ul.list-inline.tab-bar.inset-panel';
-  const tabs = getView(atom).querySelector(tabsHeightTarget);
-  const tabsHeight = (tabs && tabs.getBoundingClientRect().height) || 0;
-
-  const footerHeightTarget = 'body /deep/ atom-panel.footer';
-  const footer = getView(atom).querySelector(footerHeightTarget);
-  const footerHeight = (footer && footer.getBoundingClientRect().height) || 0;
-  const totalHeight = window.screen.height - tabsHeight - footerHeight;
-
-  const badgeDetails = badge.getBoundingClientRect();
-  const badgeTopPosition = badgeDetails.top + badgeDetails.height;
-
-  return totalHeight - badgeTopPosition >= MIN_HEIGHT;
-};
+const shouldOpenOnBottom = pixelsToBottom => pixelsToBottom >= MIN_HEIGHT;
 
 const addFooter = (data) => {
   const infoContainer = el(
@@ -152,9 +138,11 @@ const addCloseButton = (data, badge) => {
   return icon;
 };
 
-export const addTooltip = ({ data }, badge) => {
+export const addTooltip = ({ dependency, pixelsToBottom }, element) => {
+  const { data } = dependency;
+
   const tooltip = el('div',
-    addCloseButton(data, badge),
+    addCloseButton(data, element),
     el('article',
       el('h3', data.name),
       el('p', data.description),
@@ -162,11 +150,11 @@ export const addTooltip = ({ data }, badge) => {
     addFooter(data),
   );
 
-  const positionClass = shouldOpenOnBottom(badge) ? 'bottom' : 'top';
+  const positionClass = shouldOpenOnBottom(pixelsToBottom) ? 'bottom' : 'top';
 
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
   });
 
-  mount(badge, tooltip);
+  mount(element, tooltip);
 };
