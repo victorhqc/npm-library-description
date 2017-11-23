@@ -5,21 +5,18 @@ import format from 'date-fns/format';
 import map from 'lodash/map';
 
 import {
-  NPM_LIBRARY_DESCRIPTION,
   TOOLTIP,
   DATE_FORMAT,
   MIN_HEIGHT,
 } from '../constants/elements';
 
-const getView = atom => atom.views.getView(atom.workspace);
-
 export const removeTooltip = (badge, data) => {
   badge.querySelector(`.${TOOLTIP}.${data.name}`).remove();
 };
 
-export const removeTooltips = (atom) => {
-  const target = `body /deep/ .${NPM_LIBRARY_DESCRIPTION} .${TOOLTIP}`;
-  const tooltips = getView(atom).querySelectorAll(target);
+export const removeTooltips = (element) => {
+  const target = `.${TOOLTIP}`;
+  const tooltips = element.querySelectorAll(target);
   map(tooltips, (tooltip) => {
     tooltip.remove();
   });
@@ -138,8 +135,11 @@ const addCloseButton = (data, badge) => {
   return icon;
 };
 
-export const addTooltip = ({ dependency, pixelsToBottom }, element) => {
+export const addTooltip = ({ dependency, pixelsToBottom, event }, element) => {
+  removeTooltips(element);
+
   const { data } = dependency;
+  const { x, y } = event;
 
   const tooltip = el('div',
     addCloseButton(data, element),
@@ -154,6 +154,9 @@ export const addTooltip = ({ dependency, pixelsToBottom }, element) => {
 
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
+    style: {
+      transform: `translate3d(${x}px, ${y}px, 0)`,
+    },
   });
 
   mount(element, tooltip);
