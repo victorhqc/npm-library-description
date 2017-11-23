@@ -156,12 +156,14 @@ export const addTooltip = ({
     addFooter(data),
   );
 
-  const positionClass = shouldOpenOnBottom(pixelsToBottom) ? 'bottom' : 'top';
+  const shouldRenderOnBottom = shouldOpenOnBottom(pixelsToBottom);
+  const positionClass = shouldRenderOnBottom ? 'bottom' : 'top';
+  const topOffset = shouldRenderOnBottom ? pixelsToTop + lineHeight : pixelsToTop;
 
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
     style: {
-      transform: `translate3d(${leftOffset}px, ${pixelsToTop + lineHeight}px, 0)`,
+      transform: `translate3d(${leftOffset}px, ${topOffset}px, 0)`,
     },
   });
 
