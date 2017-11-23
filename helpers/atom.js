@@ -7,6 +7,13 @@ import {
   NPM_LIBRARY_DESCRIPTION,
 } from '../constants/elements';
 
+/**
+ * This is used to identify `dependencies` and `gutters` for each `textEditor`
+ * @param  {TextEditor} textEditor
+ * @return {String}
+ */
+export const getEditorKey = textEditor => textEditor.getPath();
+
 export const getActiveTextEditor = () => atom.workspace.getActiveTextEditor();
 
 export const getView = textEditor => atom.views.getView(textEditor);

@@ -14,8 +14,8 @@ import {
   MIN_HEIGHT,
 } from '../constants/elements';
 
-export const removeTooltip = (badge, data) => {
-  badge.querySelector(`.${TOOLTIP}.${data.name}`).remove();
+export const removeTooltip = (element, data) => {
+  element.querySelector(`.${TOOLTIP}.${data.name}`).remove();
 };
 
 export const removeTooltips = (element) => {
@@ -142,6 +142,7 @@ const addCloseButton = (data, badge) => {
 export const addTooltip = ({
   dependency,
   inGutter,
+  emitter,
 }, element) => {
   removeTooltips(element);
 
@@ -174,6 +175,16 @@ export const addTooltip = ({
   const style = {
     transform: `translate3d(${x}px, ${y}px, 0)`,
   };
+
+  if (!inGutter) {
+    tooltip.addEventListener('mouseenter', () => {
+      emitter.emit('is-in-tooltip', true);
+    }, false);
+
+    tooltip.addEventListener('mouseleave', () => {
+      emitter.emit('is-in-tooltip', false);
+    }, false);
+  }
 
   setAttr(tooltip, {
     className: `${TOOLTIP} ${data.name} ${positionClass}`,
