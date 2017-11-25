@@ -147,7 +147,6 @@ export const addTooltip = ({
   removeTooltips(element);
 
   const { data, line } = dependency;
-  // const { y } = event;
 
   const tooltip = el('div',
     addCloseButton(data, element),
