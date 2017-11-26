@@ -58,7 +58,8 @@ describe('NpmLibraryDescription', () => {
   it('Should render NPM information when clicking a badge', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip axios bottom",
+        "_class": "npm-library-tooltip axios top",
+        "_style": "transform: translate3d(20px, 0px, 0px);",
         "article": {
           "h3": "axios",
           "p": "foo"
@@ -133,7 +134,8 @@ describe('NpmLibraryDescription', () => {
   it('Should render NPM incomplete information (only name and description)', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip webpack bottom",
+        "_class": "npm-library-tooltip webpack top",
+        "_style": "transform: translate3d(20px, 0px, 0px);",
         "article": {
           "h3": "webpack",
           "p": "foo"

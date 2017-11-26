@@ -8,7 +8,7 @@ import MockAdapter from 'axios-mock-adapter';
 
 import {
   NPM_LIBRARY_DESCRIPTION,
-} from '../constants/elements';
+} from '../lib/constants/elements';
 
 const mockFetch = new MockAdapter(axios);
 
