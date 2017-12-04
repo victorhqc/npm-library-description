@@ -14,13 +14,18 @@ import {
   ADD_DEPENDENCY,
 } from '../../../lib/store/constants/dependencies';
 
-const mockFetch = new MockAdapter(axios);
 const middlewares = [thunk, promiseMiddleware()];
-const mockStore = configureMockStore(middlewares);
+describe('addDependency', () => {
+  let mockFetch;
+  let mockStore;
 
-fdescribe('addDependency', () => {
+  beforeEach(() => {
+    mockFetch = new MockAdapter(axios);
+    mockStore = configureMockStore(middlewares);
+  });
+
   afterEach(() => {
-    mockFetch.reset();
+    mockFetch.restore();
   });
 
   it('Should return a dependency information', () => {
@@ -48,6 +53,7 @@ fdescribe('addDependency', () => {
           name: 'foo',
           textEditorKey: 'some/package.json',
           data: response,
+          updatedAt: window.now,
         },
       },
     ];
@@ -83,6 +89,7 @@ fdescribe('addDependency', () => {
           data: {
             something: 'old',
           },
+          updatedAt: window.now,
         },
       },
     ];

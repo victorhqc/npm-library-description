@@ -118,9 +118,8 @@ describe('subscribeToDependencies', () => {
       line: 1,
       textEditorKey: 'package.json',
       name: 'some dependency',
-      another: 'new key',
       data: {
-        foo: 'updated',
+        foo: 'bar',
       },
     };
 

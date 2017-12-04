@@ -610,6 +610,10 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
 
+jasmine-beforeall@^0.1.1:
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/jasmine-beforeall/-/jasmine-beforeall-0.1.1.tgz#282415246be26f4d4049bead87f508bf5e0a52a7"
+
 jasmine-snapshot@^1.7.8:
   version "1.7.8"
   resolved "https://registry.yarnpkg.com/jasmine-snapshot/-/jasmine-snapshot-1.7.8.tgz#b90918414f1be1d3c38bb40f9ad8edf66631ea63"

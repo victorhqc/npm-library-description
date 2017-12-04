@@ -3,27 +3,15 @@
 import filter from 'lodash/filter';
 import map from 'lodash/map';
 import find from 'lodash/find';
-import axios from 'axios';
-import MockAdapter from 'axios-mock-adapter';
 
 import {
   NPM_LIBRARY_DESCRIPTION,
 } from '../lib/constants/elements';
 
-const mockFetch = new MockAdapter(axios);
-
 export const saveEditor = editor => editor.save();
 
 export const openTestFile = (atom, name = 'valid/package.json') =>
   atom.workspace.open(`${__dirname}/${name}`);
-
-export const mockPackageResponse = (packageDetails) => {
-  mockFetch.onGet(`https://registry.npmjs.org/${packageDetails.name}`).replyOnce(200, packageDetails);
-};
-
-export const mockPackageFailedResponse = (packageName) => {
-  mockFetch.onGet(`https://registry.npmjs.org/${packageName}`).replyOnce(404, {});
-};
 
 export const activatePackage = atom => atom.packages.activatePackage(NPM_LIBRARY_DESCRIPTION);
 
@@ -55,8 +43,16 @@ export const elementToString = (element) => {
   return tmp.innerHTML;
 };
 
-export const mockDependencies = () => {
-  mockPackageResponse({
+export const mockPackageResponse = (mockFetch, packageDetails) => {
+  mockFetch.onGet(`https://registry.npmjs.org/${packageDetails.name}`).reply(200, packageDetails);
+};
+
+export const mockPackageFailedResponse = (mockFetch, packageName) => {
+  mockFetch.onGet(`https://registry.npmjs.org/${packageName}`).reply(404, {});
+};
+
+export const mockDependencies = (mockFetch) => {
+  mockPackageResponse(mockFetch, {
     name: 'axios',
     description: 'foo',
     author: {
@@ -75,7 +71,7 @@ export const mockDependencies = () => {
     },
     homepage: 'http://foo.bar',
   });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'redom',
     description: 'foo',
     author: {
@@ -94,7 +90,7 @@ export const mockDependencies = () => {
     },
     homepage: 'http://foo.bar',
   });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'react',
     description: 'foo',
     time: {
@@ -108,24 +104,20 @@ export const mockDependencies = () => {
       latest: '0.0.5',
     },
   });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'babel',
     description: 'foo',
     homepage: 'http://foo.bar',
   });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'webpack',
     description: 'foo',
   });
-  mockPackageResponse({
-    name: 'babel',
-    description: 'foo',
-  });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'lint',
     description: 'foo',
   });
-  mockPackageResponse({
+  mockPackageResponse(mockFetch, {
     name: 'jest',
     description: 'foo',
     time: {
@@ -140,5 +132,5 @@ export const mockDependencies = () => {
     },
     homepage: 'http://foo.bar',
   });
-  mockPackageFailedResponse('enzyme');
+  mockPackageFailedResponse(mockFetch, 'enzyme');
 };
