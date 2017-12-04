@@ -1,6 +1,8 @@
 'use babel';
 
 import { expectxml } from 'jasmine-snapshot';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 
 import {
   saveEditor,
@@ -32,16 +34,23 @@ const validJson = `{
 `;
 
 describe('NpmLibraryDescription', () => {
+  let mockFetch;
+
   beforeEach(() => {
     waitsForPromise(() => activatePackage(atom));
+    mockFetch = new MockAdapter(axios);
   });
 
-  it('Should activate package', () => {
+  afterEach(() => {
+    mockFetch.restore();
+  });
+
+  it('should activate package', () => {
     expect(atom.packages.isPackageActive('npm-library-description')).toBeTruthy();
   });
 
-  it('Should render the information badges for dependencies', () => {
-    mockDependencies();
+  it('should render the information badges for dependencies', () => {
+    mockDependencies(mockFetch);
     waitsForPromise(() => openTestFile(atom).then(() => {
       const editor = atom.workspace.getActiveTextEditor();
 
@@ -55,10 +64,11 @@ describe('NpmLibraryDescription', () => {
     }));
   });
 
-  it('Should render NPM information when clicking a badge', () => {
+  it('should render NPM information when clicking a badge', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip axios bottom",
+        "_class": "npm-library-tooltip axios top",
+        "_style": "transform: translate3d(20px, 0px, 0px);",
         "article": {
           "h3": "axios",
           "p": "foo"
@@ -112,7 +122,7 @@ describe('NpmLibraryDescription', () => {
       }
     }`;
 
-    mockDependencies();
+    mockDependencies(mockFetch);
     waitsForPromise(() => openTestFile(atom).then(() => {
       const editor = atom.workspace.getActiveTextEditor();
 
@@ -130,10 +140,11 @@ describe('NpmLibraryDescription', () => {
     }));
   });
 
-  it('Should render NPM incomplete information (only name and description)', () => {
+  it('should render NPM incomplete information (only name and description)', () => {
     const snapshot = `{
       "div": {
-        "_class": "npm-library-tooltip webpack bottom",
+        "_class": "npm-library-tooltip webpack top",
+        "_style": "transform: translate3d(20px, 0px, 0px);",
         "article": {
           "h3": "webpack",
           "p": "foo"
@@ -164,7 +175,7 @@ describe('NpmLibraryDescription', () => {
       }
     }`;
 
-    mockDependencies();
+    mockDependencies(mockFetch);
     waitsForPromise(() => openTestFile(atom).then(() => {
       const editor = atom.workspace.getActiveTextEditor();
 
@@ -181,7 +192,7 @@ describe('NpmLibraryDescription', () => {
     }));
   });
 
-  it('Should warn user that file is not correctly parsed', () => {
+  it('should warn user that file is not correctly parsed', () => {
     waitsForPromise(() => openTestFile(atom, 'invalid/package.json').then(() => {
       const notifications = atom.notifications.getNotifications();
       expect(notifications).toHaveLength(1);
@@ -193,8 +204,58 @@ describe('NpmLibraryDescription', () => {
     }));
   });
 
-  it('Should render on file save', () => {
-    mockPackageResponse({
+  it('should warn when updating file', () => {
+    waitsForPromise(() => openTestFile(atom, 'valid/package.json').then(() => {
+      const editor = atom.workspace.getActiveTextEditor();
+      editor.setText(invalidJson);
+
+      waitsForPromise(() => saveEditor(editor).then(() => {
+        // Just move this to the end of the function stack.
+        waits(0);
+        runs(() => {
+          const notifications = atom.notifications.getNotifications();
+          expect(notifications).toHaveLength(1);
+
+          expect(notifications[0].message)
+            .toBe('npm-library-description: There was a problem reading package.json');
+
+          expect(notifications[0].type).toBe('warning');
+
+          // Put the file as it was
+          editor.setText(`{
+  "name": "some-test",
+  "scripts": {
+    "foo": "bar",
+    "start": "./index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "foo",
+    "bar",
+    "test"
+  ],
+  "dependencies": {
+    "axios": "0.0.5",
+    "redom": "0.0.5",
+    "react": "0.0.5"
+  },
+  "devDependencies": {
+    "babel": "0.0.5",
+    "webpack": "0.0.5",
+    "lint": "0.0.5",
+    "jest": "0.0.5",
+    "enzyme": "0.0.5"
+  }
+}
+`);
+          saveEditor(editor);
+        });
+      }));
+    }));
+  });
+
+  it('should render on file save', () => {
+    mockPackageResponse(mockFetch, {
       name: 'invalid',
       description: 'foo',
     });
