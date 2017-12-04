@@ -204,6 +204,56 @@ describe('NpmLibraryDescription', () => {
     }));
   });
 
+  it('should warn when updating file', () => {
+    waitsForPromise(() => openTestFile(atom, 'valid/package.json').then(() => {
+      const editor = atom.workspace.getActiveTextEditor();
+      editor.setText(invalidJson);
+
+      waitsForPromise(() => saveEditor(editor).then(() => {
+        // Just move this to the end of the function stack.
+        waits(0);
+        runs(() => {
+          const notifications = atom.notifications.getNotifications();
+          expect(notifications).toHaveLength(1);
+
+          expect(notifications[0].message)
+            .toBe('npm-library-description: There was a problem reading package.json');
+
+          expect(notifications[0].type).toBe('warning');
+
+          // Put the file as it was
+          editor.setText(`{
+  "name": "some-test",
+  "scripts": {
+    "foo": "bar",
+    "start": "./index.js",
+    "test": "jest"
+  },
+  "keywords": [
+    "foo",
+    "bar",
+    "test"
+  ],
+  "dependencies": {
+    "axios": "0.0.5",
+    "redom": "0.0.5",
+    "react": "0.0.5"
+  },
+  "devDependencies": {
+    "babel": "0.0.5",
+    "webpack": "0.0.5",
+    "lint": "0.0.5",
+    "jest": "0.0.5",
+    "enzyme": "0.0.5"
+  }
+}
+`);
+          saveEditor(editor);
+        });
+      }));
+    }));
+  });
+
   it('should render on file save', () => {
     mockPackageResponse(mockFetch, {
       name: 'invalid',
