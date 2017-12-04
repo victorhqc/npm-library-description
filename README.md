@@ -1,9 +1,9 @@
 # npm-library-description
-![Build Status](https://img.shields.io/circleci/project/github/victorhqc/npm-library-description/master.svg) ![License](https://img.shields.io/apm/l/npm-library-description.svg) ![Version](https://img.shields.io/apm/v/npm-library-description.svg) ![Downloads](https://img.shields.io/apm/dm/npm-library-description.svg)
-
 Shows information about dependencies in your `package.json`
 
 ![Npm library description](https://i.imgur.com/qsHs5uT.png)
+
+![Build Status](https://img.shields.io/circleci/project/github/victorhqc/npm-library-description/master.svg) ![License](https://img.shields.io/apm/l/npm-library-description.svg) ![Version](https://img.shields.io/apm/v/npm-library-description.svg) ![Downloads](https://img.shields.io/apm/dm/npm-library-description.svg)
 
 ## Installation
 
