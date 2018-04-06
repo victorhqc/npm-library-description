@@ -85,8 +85,8 @@ describe('NpmLibraryDescription', () => {
             },
             {
               "_class": "btn btn-primary",
-              "_href": "https://npmjs.com/packages/axios",
-              "_title": "https://npmjs.com/packages/axios",
+              "_href": "https://npmjs.com/package/axios",
+              "_title": "https://npmjs.com/package/axios",
               "i": {
                 "_class": "icon icon-repo"
               }
@@ -152,8 +152,8 @@ describe('NpmLibraryDescription', () => {
         "footer": {
           "a": {
             "_class": "btn btn-primary",
-            "_href": "https://npmjs.com/packages/webpack",
-            "_title": "https://npmjs.com/packages/webpack",
+            "_href": "https://npmjs.com/package/webpack",
+            "_title": "https://npmjs.com/package/webpack",
             "i": {
               "_class": "icon icon-repo"
             }
