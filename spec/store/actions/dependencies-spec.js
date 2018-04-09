@@ -6,13 +6,9 @@ import promiseMiddleware from 'redux-promise-middleware';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
-import {
-  addDependency,
-} from '../../../lib/store/actions/dependencies';
+import { addDependency } from '../../../lib/store/actions/dependencies';
 
-import {
-  ADD_DEPENDENCY,
-} from '../../../lib/store/constants/dependencies';
+import { ADD_DEPENDENCY } from '../../../lib/store/constants/dependencies';
 
 const middlewares = [thunk, promiseMiddleware()];
 describe('addDependency', () => {

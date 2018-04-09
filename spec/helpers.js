@@ -4,9 +4,7 @@ import filter from 'lodash/filter';
 import map from 'lodash/map';
 import find from 'lodash/find';
 
-import {
-  NPM_LIBRARY_DESCRIPTION,
-} from '../lib/constants/elements';
+import { NPM_LIBRARY_DESCRIPTION } from '../lib/constants/elements';
 
 export const saveEditor = editor => editor.save();
 

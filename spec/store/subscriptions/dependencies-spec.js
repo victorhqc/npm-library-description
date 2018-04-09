@@ -3,9 +3,7 @@
 import subscribeToDependencies from '../../../lib/store/subscriptions/dependencies';
 import initStore from '../../../lib/store';
 
-import {
-  ADD_DEPENDENCY,
-} from '../../../lib/store/constants/dependencies';
+import { ADD_DEPENDENCY } from '../../../lib/store/constants/dependencies';
 
 describe('subscribeToDependencies', () => {
   it('Should call `emit` when a new dependency is fetched', () => {
