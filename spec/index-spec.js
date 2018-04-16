@@ -2,6 +2,7 @@
 
 import { expectxml } from 'jasmine-snapshot';
 import axios from 'axios';
+import sinon from 'sinon';
 import MockAdapter from 'axios-mock-adapter';
 
 import {
@@ -14,6 +15,8 @@ import {
   findBadgeByName,
   elementToString,
 } from './helpers';
+
+import { removeTooltips } from '../lib/helpers/eventListeners';
 
 const invalidJson = `{
   "name": "foobar",
@@ -274,6 +277,24 @@ describe('NpmLibraryDescription', () => {
           saveEditor(editor);
         });
       }));
+    }));
+  });
+
+  it('should close the badge by clicking anywhere in the document', () => {
+    mockDependencies(mockFetch);
+    waitsForPromise(() => openTestFile(atom).then(() => {
+      const editor = atom.workspace.getActiveTextEditor();
+      const removeMock = sinon.mock(removeTooltips);
+
+      waits(0);
+      runs(() => {
+        const badge = findBadgeByName(editor, 'axios');
+        badge.click();
+
+        editor.component.element.click();
+
+        expect(removeMock.once()).toBeTruthy();
+      });
     }));
   });
 });
