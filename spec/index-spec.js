@@ -82,16 +82,24 @@ describe('NpmLibraryDescription', () => {
               "_class": "btn",
               "_href": "http://foo.bar",
               "_title": "http://foo.bar",
-              "i": {
-                "_class": "icon icon-globe"
+              "span": {
+                "_class": "tab selected",
+                "i": {
+                  "_class": "icon icon-globe",
+                  "_data-name": ".gitignore"
+                }
               }
             },
             {
               "_class": "btn btn-primary",
               "_href": "https://npmjs.com/package/axios",
               "_title": "https://npmjs.com/package/axios",
-              "i": {
-                "_class": "icon icon-repo"
+              "span": {
+                "_class": "tab selected",
+                "i": {
+                  "_class": "icon icon-repo npm-icon",
+                  "_data-name": ".npmrc"
+                }
               }
             }
           ],
@@ -157,8 +165,12 @@ describe('NpmLibraryDescription', () => {
             "_class": "btn btn-primary",
             "_href": "https://npmjs.com/package/webpack",
             "_title": "https://npmjs.com/package/webpack",
-            "i": {
-              "_class": "icon icon-repo"
+            "span": {
+              "_class": "tab selected",
+              "i": {
+                "_class": "icon icon-repo npm-icon",
+                "_data-name": ".npmrc"
+              }
             }
           },
           "div": {
