@@ -16,7 +16,7 @@ import {
   elementToString,
 } from './helpers';
 
-import { removeTooltips } from '../lib/helpers/eventListeners';
+import * as tooltipUtils from '../lib/components/tooltip';
 
 const invalidJson = `{
   "name": "foobar",
@@ -281,10 +281,12 @@ describe('NpmLibraryDescription', () => {
   });
 
   it('should close the badge by clicking anywhere in the document', () => {
+    sinon.stub(tooltipUtils, 'removeTooltips').callsFake(() => {});
+
     mockDependencies(mockFetch);
     waitsForPromise(() => openTestFile(atom).then(() => {
       const editor = atom.workspace.getActiveTextEditor();
-      const removeMock = sinon.mock(removeTooltips);
+      // doMouseClick.once();
 
       waits(0);
       runs(() => {
@@ -292,8 +294,28 @@ describe('NpmLibraryDescription', () => {
         badge.click();
 
         editor.component.element.click();
+        expect(tooltipUtils.removeTooltips.callCount).toBe(2);
+        tooltipUtils.removeTooltips.restore();
+      });
+    }));
+  });
 
-        expect(removeMock.once()).toBeTruthy();
+  it('should not close the badge by clicking if option is disabled', () => {
+    sinon.stub(tooltipUtils, 'removeTooltips').callsFake(() => {});
+
+    mockDependencies(mockFetch);
+    waitsForPromise(() => openTestFile(atom).then(() => {
+      const editor = atom.workspace.getActiveTextEditor();
+      atom.config.set('npm-library-description.hideTooltipOnOutsideClick', false);
+
+      waits(0);
+      runs(() => {
+        const badge = findBadgeByName(editor, 'axios');
+        badge.click();
+
+        editor.component.element.click();
+        expect(tooltipUtils.removeTooltips.callCount).toBe(1);
+        tooltipUtils.removeTooltips.restore();
       });
     }));
   });
