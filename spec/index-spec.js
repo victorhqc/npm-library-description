@@ -332,4 +332,41 @@ describe('NpmLibraryDescription', () => {
       });
     }));
   });
+
+  it('Should use the NPM Token to fetch private packages', () => {
+    let headers = {};
+    mockFetch.onGet('https://registry.npmjs.org/axios').reply((config) => {
+      headers = config.headers; // eslint-disable-line prefer-destructuring
+      return [200, {
+        name: 'axios',
+        description: 'foo',
+        author: {
+          name: 'Foo',
+          email: 'foo@bar',
+        },
+        time: {
+          '0.0.5': '2017-05-01',
+        },
+        'dist-tags': {
+          latest: '0.0.5',
+        },
+        homepage: 'http://foo.bar',
+      }];
+    });
+
+    waitsForPromise(() => openTestFile(atom).then(() => {
+      atom.config.set('npm-library-description.npmToken', 'some-token');
+      const editor = atom.workspace.getActiveTextEditor();
+
+      waits(0);
+      runs(() => {
+        // Only one mocked dependency.
+        expect(editor.findMarkers({
+          npmLibraryDescription: true,
+        }).length).toBe(1);
+
+        expect(headers.authorization).toBe('Bearer some-token');
+      });
+    }));
+  });
 });
