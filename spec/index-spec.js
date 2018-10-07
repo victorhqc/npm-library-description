@@ -58,7 +58,7 @@ describe('NpmLibraryDescription', () => {
 
       waits(0);
       runs(() => {
-        // There's a failing dependency, so it only renders 6
+        // There's a failing dependency, so it only renders 7
         expect(editor.findMarkers({
           npmLibraryDescription: true,
         }).length).toBe(7);
