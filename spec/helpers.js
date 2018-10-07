@@ -103,7 +103,7 @@ export const mockDependencies = (mockFetch) => {
     },
   });
   mockPackageResponse(mockFetch, {
-    name: 'babel',
+    name: '@babel/core',
     description: 'foo',
     homepage: 'http://foo.bar',
   });

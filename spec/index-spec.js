@@ -9,7 +9,6 @@ import {
   saveEditor,
   openTestFile,
   activatePackage,
-  findDecorations,
   mockPackageResponse,
   mockDependencies,
   findBadgeByName,
@@ -29,9 +28,9 @@ const invalidJson = `{
 
 const validJson = `{
   "name": "foobar",
-  "it": "has an invalid json",
+  "it": "has an valid json",
   "dependencies": {
-    "invalid": "bar"
+    "valid": "bar"
   }
 }
 `;
@@ -59,10 +58,10 @@ describe('NpmLibraryDescription', () => {
 
       waits(0);
       runs(() => {
-        // There should be a decoration per dependency
-        const decorations = findDecorations(editor);
         // There's a failing dependency, so it only renders 7
-        expect(decorations.length).toBe(7);
+        expect(editor.findMarkers({
+          npmLibraryDescription: true,
+        }).length).toBe(7);
       });
     }));
   });
@@ -255,7 +254,7 @@ describe('NpmLibraryDescription', () => {
     "react": "0.0.5"
   },
   "devDependencies": {
-    "babel": "0.0.5",
+    "@babel/core": "0.0.5",
     "webpack": "0.0.5",
     "lint": "0.0.5",
     "jest": "0.0.5",
@@ -282,8 +281,9 @@ describe('NpmLibraryDescription', () => {
         // Just move this to the end of the function stack.
         waits(0);
         runs(() => {
-          const decorations = findDecorations(editor);
-          expect(decorations.length).toBe(1);
+          expect(editor.findMarkers({
+            npmLibraryDescription: true,
+          }).length).toBe(0);
           // Put the file as it was
           editor.setText(invalidJson);
           saveEditor(editor);
@@ -293,6 +293,7 @@ describe('NpmLibraryDescription', () => {
   });
 
   it('should close the badge by clicking anywhere in the document', () => {
+    atom.config.set('npm-library-description.hideTooltipOnOutsideClick', true);
     sinon.stub(tooltipUtils, 'removeTooltips').callsFake(() => {});
 
     mockDependencies(mockFetch);
@@ -302,7 +303,7 @@ describe('NpmLibraryDescription', () => {
 
       waits(0);
       runs(() => {
-        const badge = findBadgeByName(editor, 'axios');
+        const badge = findBadgeByName(editor, '@babel/core');
         badge.click();
 
         editor.component.element.click();

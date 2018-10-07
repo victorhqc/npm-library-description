@@ -16,7 +16,7 @@
     "react": "0.0.5"
   },
   "devDependencies": {
-    "babel": "0.0.5",
+    "@babel/core": "0.0.5",
     "webpack": "0.0.5",
     "lint": "0.0.5",
     "jest": "0.0.5",
