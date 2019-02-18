@@ -19,6 +19,9 @@
   ],
   "repository": "git@github.com:victorhqc/npm-library-description.git",
   "website": "https://github.com/victorhqc/npm-library-description",
+  "activationHooks": [
+    "language-json:grammar-used"
+  ],
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
