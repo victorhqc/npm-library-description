@@ -17,7 +17,10 @@
     "information",
     "package.json"
   ],
-  "repository": "https://github.com/victorhqc/npm-library-description.git",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:victorhqc/npm-library-description.git"
+  },
   "website": "https://github.com/victorhqc/npm-library-description",
   "activationHooks": [
     "language-json:grammar-used",
