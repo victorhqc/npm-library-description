@@ -8,8 +8,8 @@ import { NPM_LIBRARY_DESCRIPTION } from '../lib/constants/elements';
 
 export const saveEditor = editor => editor.save();
 
-export const openTestFile = (atom, name = 'valid/package.json') =>
-  atom.workspace.open(`${__dirname}/${name}`);
+export const openTestFile = (atom, name = 'valid/package.json') => atom
+  .workspace.open(`${__dirname}/${name}`);
 
 export const activatePackage = atom => atom.packages.activatePackage(NPM_LIBRARY_DESCRIPTION);
 
@@ -24,8 +24,8 @@ export const findDecorations = (editor) => {
   );
 };
 
-export const findBadges = editor => map(findDecorations(editor), decoration =>
-  decoration.getProperties().item,
+export const findBadges = editor => map(
+  findDecorations(editor), decoration => decoration.getProperties().item,
 );
 
 export const findBadgeByName = (editor, name) => {

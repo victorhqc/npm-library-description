@@ -2,13 +2,13 @@
 
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import promiseMiddleware from 'redux-promise-middleware';
+import promise from 'redux-promise-middleware';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { addDependency, ADD_DEPENDENCY } from '../../../lib/store/dependencies';
 
-const middlewares = [thunk, promiseMiddleware()];
+const middlewares = [thunk, promise];
 describe('addDependency', () => {
   let mockFetch;
   let mockStore;
