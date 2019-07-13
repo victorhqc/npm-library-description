@@ -39,6 +39,12 @@ describe('NpmLibraryDescription', () => {
   let mockFetch;
 
   beforeEach(() => {
+    atom.packages.triggerActivationHook(
+      'language-json:grammar-used',
+    );
+    atom.packages.triggerDeferredActivationHooks();
+    waitsForPromise(() => atom.updateProcessEnvAndTriggerHooks());
+
     waitsForPromise(() => activatePackage(atom));
     mockFetch = new MockAdapter(axios);
   });
