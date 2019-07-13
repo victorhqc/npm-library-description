@@ -42,7 +42,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "axios-mock-adapter": "^1.10.0",
+    "axios-mock-adapter": "^1.17.0",
     "eslint": "^5.3.0",
     "eslint-cli": "1.1.1",
     "eslint-config-airbnb-base": "^13.2.0",
