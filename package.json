@@ -35,7 +35,7 @@
     "is-github-url": "^1.2.2",
     "is-gitlab-url": "^1.0.0",
     "is-json": "^2.0.1",
-    "lodash": "^4.17.14",
+    "lodash": "^4.17.19",
     "redom": "^3.24.0",
     "redux": "^4.0.4",
     "redux-promise-middleware": "^6.1.1",
